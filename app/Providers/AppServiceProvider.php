@@ -2,8 +2,14 @@
 
 namespace App\Providers;
 
+use App\Domain\Contracts\Models\Contract;
+use App\Domain\Contracts\Policies\ContractPolicy;
+use App\Domain\Invoices\Models\Invoice;
+use App\Domain\Invoices\Policies\InvoicePolicy;
+use App\Domain\Payments\Models\Payment;
+use App\Domain\Payments\Policies\PaymentPolicy;
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Support\Facades\Gate;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -30,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Gate::policy(Contract::class, ContractPolicy::class);
+        Gate::policy(Invoice::class, InvoicePolicy::class);
+        Gate::policy(Payment::class, PaymentPolicy::class);
     }
 }
