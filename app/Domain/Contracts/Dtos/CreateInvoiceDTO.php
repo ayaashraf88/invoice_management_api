@@ -1,5 +1,6 @@
 <?php
 namespace App\Domain\Contracts\Dtos;
+use App\Http\Requests\StoreInvoiceRequest;
 class CreateInvoiceDTO
 {
     public function __construct(
