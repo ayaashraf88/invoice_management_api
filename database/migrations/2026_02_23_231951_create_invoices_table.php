@@ -22,7 +22,7 @@ return new class extends Migration
             $table->decimal('total', 15, 2);
             $table->string('status')->default(InvoiceStatusEnum::PENDING->value);
             $table->date('due_date');
-            $table->timestamp('paid_at');
+            $table->timestamp('paid_at')->nullable();
             $table->timestamps();
         });
     }

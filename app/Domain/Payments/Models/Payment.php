@@ -1,4 +1,4 @@
-<?
+<?php
 namespace App\Domain\Payments\Models;
 
 use App\Domain\Invoices\Models\Invoice;

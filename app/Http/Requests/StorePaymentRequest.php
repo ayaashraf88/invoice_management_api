@@ -1,5 +1,7 @@
 <?php
 namespace App\Http\Requests;
+
+use App\Domain\Payments\Dtos\RecordPaymentDTO;
 use App\Domain\Payments\Enums\PaymentMethodEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
@@ -13,10 +15,13 @@ class StorePaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'invoice_id' => 'required|exists:invoices,id',
             'amount' => 'required|numeric|min:0.01',
             'payment_method' => ['required', new Enum(PaymentMethodEnum::class)],
             'reference_number' => 'required|string|max:255',
         ];
+    }
+      public function toDTO(\App\Domain\Invoices\Models\Invoice $invoice): RecordPaymentDTO
+    {
+        return RecordPaymentDTO::fromRequest($this,$invoice);
     }
 }

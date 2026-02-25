@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Domain\Contracts\Dtos\CreateInvoiceDTO;
+use App\Domain\Invoices\Dtos\CreateInvoiceDTO;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -15,15 +15,11 @@ class StoreInvoiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'contract_id' => [
-                'required',
-                Rule::exists('contracts', 'id')->where('tenant_id', auth()->user()->tenant_id)
-            ],
             'due_date' => 'required|date',
         ];
     }
-    public function toDTO(): CreateInvoiceDTO
+    public function toDTO(\App\Domain\Contracts\Models\Contract $contract): CreateInvoiceDTO
     {
-        return CreateInvoiceDTO::fromRequest($this);
+        return CreateInvoiceDTO::fromRequest($this,$contract);
     }
 }

@@ -3,6 +3,7 @@ namespace App\Domain\Contracts\Models;
 
 use App\Domain\Invoices\Models\Invoice;
 use App\Domain\Tenants\Models\Tenant;
+use Database\Factories\ContractFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -26,10 +27,14 @@ class Contract extends Model{
             'status' => \App\Domain\Contracts\Enums\ContractStatusEnum::class,
         ];
     }
-    function Tenant()  {
+    function tenant()  {
         return $this->belongsTo(Tenant::class);
     }
-    function Invoice()  {
+    function invoices()  {
         return $this->hasMany(Invoice::class);
+    }
+    protected static function newFactory()
+    {
+        return ContractFactory::new();
     }
 }

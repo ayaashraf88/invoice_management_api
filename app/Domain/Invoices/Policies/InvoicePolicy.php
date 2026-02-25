@@ -5,6 +5,7 @@ namespace App\Domain\Invoices\Policies;
 use App\Domain\Contracts\Models\Contract;
 use App\Domain\Invoices\Models\Invoice;
 use App\Domain\Users\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class InvoicePolicy
 {
@@ -18,7 +19,7 @@ class InvoicePolicy
     }
     public function recordPayment(User $user, Invoice $invoice): bool
     {
-        $isSameTenant = $user->tenant_id === $invoice->Contract->tenant_id;
+        $isSameTenant = $user->tenant_id === $invoice->contract->tenant_id;
         $isNotCancelled = $invoice->status !== 'cancelled';
         return $isSameTenant && $isNotCancelled;
     }

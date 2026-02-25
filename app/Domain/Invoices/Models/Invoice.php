@@ -1,4 +1,5 @@
-<?
+<?php
+
 namespace App\Domain\Invoices\Models;
 
 use App\Domain\Contracts\Models\Contract;
@@ -7,15 +8,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Invoice extends Model{
-     use HasFactory, Notifiable;
-   protected $fillable = [
-    'contract_id',
-    'invoice_number',
-    'subtotal',
-    'tax_amount',
-    'total',
-    'status',
+class Invoice extends Model
+{
+    use HasFactory, Notifiable;
+    protected $fillable = [
+        'contract_id',
+        'invoice_number',
+        'subtotal',
+        'tax_amount',
+        'total',
+        'status',
+        'due_date',
+        'paid_at',
     ];
     protected function casts(): array
     {
@@ -25,10 +29,13 @@ class Invoice extends Model{
             'status' => \App\Domain\Invoices\Enums\InvoiceStatusEnum::class,
         ];
     }
-    function Contract()  {
-        return $this->belongsTo(Contract::class);
+    public function contract()
+    {
+        return $this->belongsTo(Contract::class, 'contract_id');
     }
-    function Payments()  {
+
+    public function payments() 
+    {
         return $this->hasMany(Payment::class);
     }
 }
