@@ -1,59 +1,260 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📄 Invoice Management API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Laravel-based **Invoice Management API** built with a clean layered architecture and solid OOP principles.  
+This module is part of a real estate platform that manages contracts, invoices, taxes, and payments.
 
-## About Laravel
+## 🚀 Tech Stack
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Framework:** Laravel 10+
+- **Language:** PHP 8.1+
+- **Architecture:** DTO → Form Request → Controller → Policy → Service → Repository
+- **Database:** MySQL / PostgreSQL
+- **Design Principles:** SOLID, Clean Architecture, OOP
+- **Patterns Used:**
+  - Strategy Pattern (Tax Calculation)
+  - Repository Pattern
+  - Service Layer Pattern
+  - Policy-based Authorization
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 📌 Features
 
-## Learning Laravel
+### ✅ Contracts
+- Multi-tenant aware
+- Status management (`draft`, `active`, `expired`, `terminated`)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### ✅ Invoices
+- Auto-generated invoice numbers
+- Tax calculation via strategy pattern
+- Status tracking (`pending`, `paid`, `partially_paid`, `overdue`, `cancelled`)
+- Remaining balance calculation
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### ✅ Payments
+- Multiple payment methods:
+  - Cash
+  - Bank Transfer
+  - Credit Card
+- Prevent overpayments
+- Automatic invoice status updates
 
-## Laravel Sponsors
+### ✅ Financial Summary
+- Total invoiced
+- Total paid
+- Outstanding balance
+- Latest invoice date
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## 🏗 Architecture Overview
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+HTTP Request  
+↓  
+Form Request (Validation)  
+↓  
+Controller (DTO creation + Authorization)  
+↓  
+Policy (Tenant authorization)  
+↓  
+Service (Business logic & transactions)  
+↓  
+Repository (Database access)  
+↓  
+API Resource (JSON response)
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 📂 Project Structure
 
-## Code of Conduct
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+app/
+ └── Domain/
+      ├── Contracts/
+      │    ├── Enums/
+      │    ├── Models/
+      │    ├── Policies/
+      │    └── Repositories/
+      │
+      ├── Invoices/
+      │    ├── DTOs/
+      |    ├── Enums/
+      │    ├── Models/
+      │    ├── Policies/
+      │    ├── Repositories/
+      │    └── Services/
+      │
+      ├── Payments/
+      │    ├── DTOs/
+      |    ├── Enums/
+      │    ├── Models/
+      │    ├── Policies/
+      │    └── Repositories/
+      │
+      ├──Tax/
+      |    ├── Interfaces/
+      |    ├── Services/
+      |    └── Strategies.php
+      ├── Tenants/
+      │    └── Models/
+      └── Users/
+      │    ├── DTOs/
+      │    ├── Models/
+      │    ├── Repositories/
+      │    └── Services/
 
-## Security Vulnerabilities
+app/Http/
+ ├── Controllers/
+ └── Requests/
+ └── Requests/
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## 🧾 Domain Models
+
+### Contract
+| Field | Type |
+|------|------|
+| id | bigint |
+| tenant_id | bigint |
+| unit_name | string |
+| customer_name | string |
+| rent_amount | decimal |
+| start_date | date |
+| end_date | date |
+| status | enum |
+
+### Invoice
+| Field | Type |
+|------|------|
+| id | bigint |
+| contract_id | bigint |
+| invoice_number | string |
+| subtotal | decimal |
+| tax_amount | decimal |
+| total | decimal |
+| status | enum |
+| due_date | date |
+| paid_at | datetime |
+
+### Payment
+| Field | Type |
+|------|------|
+| id | bigint |
+| invoice_id | bigint |
+| amount | decimal |
+| payment_method | enum |
+| reference_number | string |
+| paid_at | datetime |
+
+---
+
+## 💰 Tax Calculation System
+
+Implements the **Strategy Pattern** for flexible tax rules.
+
+### Supported Taxes
+- VAT → 15%
+- Municipal Fee → 2.5%
+
+### Adding a New Tax
+
+1. Create a class implementing `TaxCalculatorInterface`
+2. Register it in `TaxServiceProvider`
+
+No existing code changes required ✅
+
+---
+
+## 🔢 Invoice Number Format
+
+INV-{TENANT_ID}-{YYYYMM}-{SEQUENCE}  
+Example: INV-001-202602-0001
+
+---
+
+## 🔐 Authorization Rules
+
+Policies ensure tenant isolation:
+
+- Users can only access data within their tenant
+- Cannot create invoices for other tenants
+- Cannot record payments on cancelled invoices
+
+---
+
+## 📡 API Endpoints
+
+### ➤ Create Invoice
+POST /api/contracts/{id}/invoices
+
+### ➤ List Contract Invoices
+GET /api/contracts/{id}/invoices
+
+### ➤ Get Invoice Details
+GET /api/invoices/{id}
+
+### ➤ Record Payment
+POST /api/invoices/{id}/payments
+
+### ➤ Contract Financial Summary
+GET /api/contracts/{id}/summary
+
+---
+
+## 🧠 Business Rules
+
+- Invoice can only be created for **active contracts**
+- Payments cannot exceed remaining balance
+- Invoice status updates automatically:
+  - Fully paid → `paid`
+  - Partial payment → `partially_paid`
+- All operations run inside **database transactions**
+
+---
+
+## ▶️ Installation
+
+```bash
+git clone https://github.com/your-username/invoice-management-api.git
+cd invoice-management-api
+
+composer install
+cp .env.example .env
+php artisan key:generate
+
+php artisan migrate --seed
+php artisan serve
+```
+
+
+
+---
+
+## 📬 Example API Response
+
+### Invoice Resource
+
+```json
+{
+  "id": 1,
+  "invoice_number": "INV-001-202602-0001",
+  "subtotal": "1000.00",
+  "tax_amount": "175.00",
+  "total": "1175.00",
+  "status": "pending",
+  "due_date": "2026-03-01",
+  "remaining_balance": "1175.00",
+  "payments": []
+}
+```
+
+---
+
+## 👩‍💻 Author
+
+**Aya Ashraf**  
+Laravel Backend Developer
