@@ -29,6 +29,16 @@ class AppServiceProvider extends ServiceProvider
             \App\Domain\Payments\Repositories\PaymentRepositoryInterface::class,
             \App\Domain\Payments\Repositories\EloquentPaymentRepository::class
         );
+         $this->app->bind(
+            \App\Domain\Users\Repositories\AuthRepositoryInterface::class,
+            \App\Domain\Users\Repositories\EloquentAuthRepository::class
+        );
+     $this->app->singleton(\App\Domain\Tax\Services\TaxService::class, function ($app) {
+        return new \App\Domain\Tax\Services\TaxService([
+            new \App\Domain\Tax\Strategies\VatTax(),
+            new \App\Domain\Tax\Strategies\MunicipalFee(),
+        ]);
+    });
     }
 
     /**
@@ -36,8 +46,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::policy(Contract::class, ContractPolicy::class);
         Gate::policy(Invoice::class, InvoicePolicy::class);
-        Gate::policy(Payment::class, PaymentPolicy::class);
     }
 }

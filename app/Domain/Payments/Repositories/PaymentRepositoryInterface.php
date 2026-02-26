@@ -7,4 +7,6 @@ interface PaymentRepositoryInterface {
     public function getPaymentById(int $id): ?Payment;
     public function updatePaymentMethod(int $id, PaymentMethodEnum $method): ?Payment;
     public function deletePayment(int $id): bool;
+    public function getTotalPaidForInvoice(int $invoiceId): float;
+    public function getTotalPaidForContract(int $contractId): float;
 }

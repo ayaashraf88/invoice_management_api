@@ -1,5 +1,7 @@
 <?php
-namespace App\Domain\Contracts\Dtos;
+namespace App\Domain\Invoices\Dtos;
+
+use App\Domain\Contracts\Models\Contract;
 use App\Http\Requests\StoreInvoiceRequest;
 class CreateInvoiceDTO
 {
@@ -8,10 +10,10 @@ class CreateInvoiceDTO
         public readonly string $due_date,
         public readonly int $tenant_id,
     ) {}
-    public static function fromRequest(StoreInvoiceRequest $request): self
+    public static function fromRequest(StoreInvoiceRequest $request ,Contract $contract): self
     {
         return new self(
-            contract_id: $request->validated('contract_id'),
+            contract_id: $contract->id,
             due_date: $request->validated('due_date'),
             tenant_id: $request->user()->tenant_id,
         );
