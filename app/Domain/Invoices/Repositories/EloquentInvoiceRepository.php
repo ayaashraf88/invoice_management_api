@@ -46,7 +46,6 @@ class EloquentInvoiceRepository implements InvoiceRepositoryInterface
     }
     public function getTotalInvoicedForContract(int $contractId): float
     {
-        // We sum the 'total' column from the invoices table
         return (float) Invoice::where('contract_id', $contractId)
             ->sum('total');
     }

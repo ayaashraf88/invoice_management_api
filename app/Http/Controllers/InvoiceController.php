@@ -28,9 +28,10 @@ class InvoiceController extends Controller
         $invoice = $this->invoiceService->createInvoice($dto);
         return new InvoiceResource($invoice);
     }
-    public function listInvoices($id, Request $request)
+    public function listInvoices(Contract $contract, Request $request)
     {
-        $invoices = Invoice::where("contract_id", $id)->when($request->query('status'), function ($query, $status) {
+        $this->authorize('view', $contract);
+        $invoices = Invoice::where("contract_id", $contract->id)->when($request->query('status'), function ($query, $status) {
             $query->where('status', $status);
         })
             ->when($request->query('from'), function ($query, $from) {
@@ -43,9 +44,10 @@ class InvoiceController extends Controller
             ->get();
         return InvoiceResource::collection($invoices);
     }
-    public function getInvoice($id)
+    public function getInvoice(Invoice $invoice)
     {
-        $invoice = $this->invoiceRepo->getInvoiceById($id);
+        $this->authorize('view', $invoice);
+        $invoice->load(['contract', 'payments']);
         return new InvoiceResource($invoice);
     }
     public function recordPayment(StorePaymentRequest $request, Invoice $invoice)

@@ -29,6 +29,10 @@ class AppServiceProvider extends ServiceProvider
             \App\Domain\Payments\Repositories\PaymentRepositoryInterface::class,
             \App\Domain\Payments\Repositories\EloquentPaymentRepository::class
         );
+         $this->app->bind(
+            \App\Domain\Users\Repositories\AuthRepositoryInterface::class,
+            \App\Domain\Users\Repositories\EloquentAuthRepository::class
+        );
      $this->app->singleton(\App\Domain\Tax\Services\TaxService::class, function ($app) {
         return new \App\Domain\Tax\Services\TaxService([
             new \App\Domain\Tax\Strategies\VatTax(),

@@ -20,8 +20,5 @@ class StorePaymentRequest extends FormRequest
             'reference_number' => 'required|string|max:255',
         ];
     }
-      public function toDTO(\App\Domain\Invoices\Models\Invoice $invoice): RecordPaymentDTO
-    {
-        return RecordPaymentDTO::fromRequest($this,$invoice);
-    }
+   
 }
