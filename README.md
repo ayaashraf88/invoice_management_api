@@ -266,7 +266,7 @@ php artisan serve
 ### 🚀 Postman Collection
 A pre-configured Postman collection is included in this repository to help you test the API flow.
 
-- **File:** `[postman/Invoice_Management_API.postman_collection.json](./postman/Invoice_Management_API.postman_collection.json)`
+- **File:** `[postman/Invoice_Management_API.postman_collection.json](./Invoice_Management_API.postman_collection.json)`
 - **How to use:** Import this file into Postman, and ensure you set the `Authorization` header to the Bearer token received from the Login endpoint.
 
 ---
