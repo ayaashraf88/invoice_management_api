@@ -11,14 +11,13 @@ class InvoiceResource extends JsonResource
         return [
             'id' => $this->id,
             'invoice_number' => $this->invoice_number,
-            'subtotal' => (float) $this->subtotal, // Cast to float
+            'subtotal' => (float) $this->subtotal,
             'tax_amount' => (float) $this->tax_amount,
             'total' => (float) $this->total,
             'status' => $this->status,
-            'due_date' => $this->due_date?->format('Y-m-d'), // Format as 2026-12-31
+            'due_date' => $this->due_date?->format('Y-m-d'), 
             'paid_at' => $this->paid_at?->format('Y-m-d H:i:s'),
             
-            // Computed field: Total - sum of payments
             'remaining_balance' => (float) ($this->total - ($this->payments_sum_amount ?? 0)),
 
             // Relationships
