@@ -1,0 +1,1217 @@
+{
+  "info": {
+    "_postman_id": "82c9b2a0-5dd4-446f-98ca-85d8f9f4ac3c",
+    "name": "invoices",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "17254939"
+  },
+  "item": [
+    {
+      "name": "login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "email",
+              "value": "test@example.com",
+              "type": "text",
+              "uuid": "44370d90-2f00-45af-8e0b-f2df02df0320"
+            },
+            {
+              "key": "password",
+              "value": "password",
+              "type": "text",
+              "uuid": "2fb914fa-65d0-4a7b-8fef-103b96c90be1"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/login",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "login"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "test@example.com",
+                  "type": "text",
+                  "uuid": "44370d90-2f00-45af-8e0b-f2df02df0320"
+                },
+                {
+                  "key": "password",
+                  "value": "password",
+                  "type": "text",
+                  "uuid": "2fb914fa-65d0-4a7b-8fef-103b96c90be1"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/login",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "login"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Host",
+              "value": "127.0.0.1:8000"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.4.16"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 26 Feb 2026 19:25:52 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"data\": {\n        \"token\": \"6|jqx6fEZmVCMS0w7E7XPt44CjWpdm4c8c5Wd6oHUf8229a6a3\",\n        \"type\": \"Bearer\"\n    }\n}"
+        },
+        {
+          "name": "failed",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "test@example.com",
+                  "type": "text",
+                  "uuid": "44370d90-2f00-45af-8e0b-f2df02df0320"
+                },
+                {
+                  "key": "password",
+                  "value": "password2",
+                  "type": "text",
+                  "uuid": "2fb914fa-65d0-4a7b-8fef-103b96c90be1"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/login",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "login"
+              ]
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Host",
+              "value": "127.0.0.1:8000"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.4.16"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 26 Feb 2026 19:31:55 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"data\": {\n        \"message\": \"The provided credentials are incorrect.\"\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "create invoice",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "4|VTXOx7IOtnXUsSwSkDDaknF3LzdzwOnmDKr4hS2p789d0a08",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "due_date",
+              "value": "2026-12-31",
+              "type": "text",
+              "uuid": "c2a86711-13a2-483b-b7e0-e0cc8f5daa0d"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/contracts/1/invoices",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "contracts",
+            "1",
+            "invoices"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "due_date",
+                  "value": "2026-12-31",
+                  "type": "text",
+                  "uuid": "c2a86711-13a2-483b-b7e0-e0cc8f5daa0d"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/contracts/1/invoices",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "contracts",
+                "1",
+                "invoices"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Host",
+              "value": "127.0.0.1:8000"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.4.16"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 25 Feb 2026 18:22:29 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"data\": {\n        \"id\": 2,\n        \"invoice_number\": \"INV-002-202602-0002\",\n        \"subtotal\": 3495,\n        \"tax_amount\": 611.63,\n        \"total\": 4106.63,\n        \"status\": \"pending\",\n        \"due_date\": \"2026-12-31\",\n        \"paid_at\": null,\n        \"remaining_balance\": 4106.63\n    }\n}"
+        },
+        {
+          "name": "fail",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "due_date",
+                  "value": "2026-12-31",
+                  "type": "text",
+                  "uuid": "c2a86711-13a2-483b-b7e0-e0cc8f5daa0d"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/contracts/1/invoices",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "contracts",
+                "1",
+                "invoices"
+              ]
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Host",
+              "value": "127.0.0.1:8000"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.4.16"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 25 Feb 2026 18:34:10 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Unauthenticated.\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "list all invoices",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "1|A3MPwcJEKyMOlchShegKTlq9mwHtVkR2lL4HDvcD43c4238d",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/contracts/1/invoices",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "contracts",
+            "1",
+            "invoices"
+          ],
+          "query": [
+            {
+              "key": "from",
+              "value": "2026-12-10",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "all without  filter",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/contracts/1/invoices",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "contracts",
+                "1",
+                "invoices"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Host",
+              "value": "127.0.0.1:8000"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.4.16"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 25 Feb 2026 18:37:01 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"invoice_number\": \"INV-002-202602-0001\",\n            \"subtotal\": 3495,\n            \"tax_amount\": 611.63,\n            \"total\": 4106.63,\n            \"status\": \"pending\",\n            \"due_date\": \"2026-12-31\",\n            \"paid_at\": null,\n            \"remaining_balance\": 4106.63\n        },\n        {\n            \"id\": 2,\n            \"invoice_number\": \"INV-002-202602-0002\",\n            \"subtotal\": 3495,\n            \"tax_amount\": 611.63,\n            \"total\": 4106.63,\n            \"status\": \"pending\",\n            \"due_date\": \"2026-12-31\",\n            \"paid_at\": null,\n            \"remaining_balance\": 4106.63\n        },\n        {\n            \"id\": 3,\n            \"invoice_number\": \"INV-002-202602-0003\",\n            \"subtotal\": 3495,\n            \"tax_amount\": 611.63,\n            \"total\": 4106.63,\n            \"status\": \"pending\",\n            \"due_date\": \"2026-12-31\",\n            \"paid_at\": null,\n            \"remaining_balance\": 4106.63\n        }\n    ]\n}"
+        },
+        {
+          "name": "search with name of the invoice",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/contracts/1/invoices?search=0003",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "contracts",
+                "1",
+                "invoices"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "0003",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Host",
+              "value": "127.0.0.1:8000"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.4.16"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 25 Feb 2026 18:47:48 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"data\": [\n        {\n            \"id\": 3,\n            \"invoice_number\": \"INV-002-202602-0003\",\n            \"subtotal\": 3495,\n            \"tax_amount\": 611.63,\n            \"total\": 4106.63,\n            \"status\": \"pending\",\n            \"due_date\": \"2026-12-31\",\n            \"paid_at\": null,\n            \"remaining_balance\": 4106.63\n        }\n    ]\n}"
+        },
+        {
+          "name": "status",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/contracts/1/invoices?status=pending",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "contracts",
+                "1",
+                "invoices"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "pending",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Host",
+              "value": "127.0.0.1:8000"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.4.16"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 25 Feb 2026 18:51:59 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"invoice_number\": \"INV-002-202602-0001\",\n            \"subtotal\": 3495,\n            \"tax_amount\": 611.63,\n            \"total\": 4106.63,\n            \"status\": \"pending\",\n            \"due_date\": \"2026-12-31\",\n            \"paid_at\": null,\n            \"remaining_balance\": 4106.63\n        },\n        {\n            \"id\": 3,\n            \"invoice_number\": \"INV-002-202602-0003\",\n            \"subtotal\": 3495,\n            \"tax_amount\": 611.63,\n            \"total\": 4106.63,\n            \"status\": \"pending\",\n            \"due_date\": \"2026-12-31\",\n            \"paid_at\": null,\n            \"remaining_balance\": 4106.63\n        }\n    ]\n}"
+        },
+        {
+          "name": "due_date should be greater than or equal from date",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/contracts/1/invoices?from=2026-12-10",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "contracts",
+                "1",
+                "invoices"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "2026-12-10",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Host",
+              "value": "127.0.0.1:8000"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.4.16"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 25 Feb 2026 18:58:22 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"invoice_number\": \"INV-002-202602-0001\",\n            \"subtotal\": 3495,\n            \"tax_amount\": 611.63,\n            \"total\": 4106.63,\n            \"status\": \"pending\",\n            \"due_date\": \"2026-12-31\",\n            \"paid_at\": null,\n            \"remaining_balance\": 4106.63\n        },\n        {\n            \"id\": 3,\n            \"invoice_number\": \"INV-002-202602-0003\",\n            \"subtotal\": 3495,\n            \"tax_amount\": 611.63,\n            \"total\": 4106.63,\n            \"status\": \"pending\",\n            \"due_date\": \"2026-12-31\",\n            \"paid_at\": null,\n            \"remaining_balance\": 4106.63\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "invoice",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "1|A3MPwcJEKyMOlchShegKTlq9mwHtVkR2lL4HDvcD43c4238d",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "due_date",
+              "value": "2026-12-31",
+              "type": "text",
+              "uuid": "c2a86711-13a2-483b-b7e0-e0cc8f5daa0d"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/invoices/1",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "invoices",
+            "1"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "invoice",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "due_date",
+                  "value": "2026-12-31",
+                  "type": "text",
+                  "uuid": "c2a86711-13a2-483b-b7e0-e0cc8f5daa0d"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/invoices/1",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "invoices",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Host",
+              "value": "127.0.0.1:8000"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.4.16"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 25 Feb 2026 19:07:13 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"data\": {\n        \"id\": 1,\n        \"invoice_number\": \"INV-002-202602-0001\",\n        \"subtotal\": 3495,\n        \"tax_amount\": 611.63,\n        \"total\": 4106.63,\n        \"status\": \"pending\",\n        \"due_date\": \"2026-12-31\",\n        \"paid_at\": null,\n        \"remaining_balance\": 4106.63,\n        \"contract\": {\n            \"id\": 1,\n            \"description\": null,\n            \"start_date\": \"2018-11-15T00:00:00.000000Z\",\n            \"end_date\": \"2002-06-14T00:00:00.000000Z\",\n            \"status\": \"active\"\n        },\n        \"payments\": []\n    }\n}"
+        },
+        {
+          "name": "invoice with payment",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "due_date",
+                  "value": "2026-12-31",
+                  "type": "text",
+                  "uuid": "c2a86711-13a2-483b-b7e0-e0cc8f5daa0d"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/invoices/1",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "invoices",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Host",
+              "value": "127.0.0.1:8000"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.4.16"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 25 Feb 2026 20:52:17 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"data\": {\n        \"id\": 1,\n        \"invoice_number\": \"INV-002-202602-0001\",\n        \"subtotal\": 3495,\n        \"tax_amount\": 611.63,\n        \"total\": 4106.63,\n        \"status\": \"paid\",\n        \"due_date\": \"2026-12-31\",\n        \"paid_at\": null,\n        \"remaining_balance\": 0,\n        \"contract\": {\n            \"id\": 1,\n            \"description\": null,\n            \"start_date\": \"2018-11-15T00:00:00.000000Z\",\n            \"end_date\": \"2002-06-14T00:00:00.000000Z\",\n            \"status\": \"active\"\n        },\n        \"payments\": [\n            {\n                \"id\": 1,\n                \"amount\": \"200.00\",\n                \"payment_method\": \"cash\",\n                \"reference_number\": \"123456\",\n                \"paid_at\": \"2026-02-25T20:20:08.000000Z\"\n            },\n            {\n                \"id\": 2,\n                \"amount\": \"200.00\",\n                \"payment_method\": \"cash\",\n                \"reference_number\": \"123456\",\n                \"paid_at\": \"2026-02-25T20:20:57.000000Z\"\n            },\n            {\n                \"id\": 3,\n                \"amount\": \"3495.00\",\n                \"payment_method\": \"cash\",\n                \"reference_number\": \"123456\",\n                \"paid_at\": \"2026-02-25T20:22:17.000000Z\"\n            },\n            {\n                \"id\": 4,\n                \"amount\": \"211.63\",\n                \"payment_method\": \"cash\",\n                \"reference_number\": \"123456\",\n                \"paid_at\": \"2026-02-25T20:52:11.000000Z\"\n            }\n        ]\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "recordpayment",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "2|NSrnP7pUNdatjde3UVSADr8gLrBRJqDtF59mGiYOba255b1a",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "amount",
+              "value": "211.63",
+              "type": "text",
+              "uuid": "d2058c52-b8dd-4049-8d86-f784fef3ff62"
+            },
+            {
+              "key": "payment_method",
+              "value": "cash",
+              "type": "text",
+              "uuid": "e2d388c0-417e-4e6c-b94a-63e3fe40d289"
+            },
+            {
+              "key": "reference_number",
+              "value": "123456",
+              "type": "text",
+              "uuid": "01d7fb7b-8004-4cc4-b29d-c2fcaf89879e"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/invoices/1/payment",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "invoices",
+            "1",
+            "payment"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "recordpayment",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "amount",
+                  "value": "211.63",
+                  "type": "text",
+                  "uuid": "d2058c52-b8dd-4049-8d86-f784fef3ff62"
+                },
+                {
+                  "key": "payment_method",
+                  "value": "cash",
+                  "type": "text",
+                  "uuid": "e2d388c0-417e-4e6c-b94a-63e3fe40d289"
+                },
+                {
+                  "key": "reference_number",
+                  "value": "123456",
+                  "type": "text",
+                  "uuid": "01d7fb7b-8004-4cc4-b29d-c2fcaf89879e"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/invoices/1/payment",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "invoices",
+                "1",
+                "payment"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Host",
+              "value": "127.0.0.1:8000"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.4.16"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 25 Feb 2026 20:52:11 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"data\": {\n        \"id\": 4,\n        \"amount\": 211.63,\n        \"payment_method\": \"cash\",\n        \"reference_number\": \"123456\",\n        \"paid_at\": \"2026-02-25T20:52:11.000000Z\"\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "summary",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "2|NSrnP7pUNdatjde3UVSADr8gLrBRJqDtF59mGiYOba255b1a",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/contracts/1/summary",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "contracts",
+            "1",
+            "summary"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "summary",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/contracts/1/summary",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "contracts",
+                "1",
+                "summary"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Host",
+              "value": "127.0.0.1:8000"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.4.16"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 25 Feb 2026 21:25:07 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"data\": {\n        \"contract_id\": 1,\n        \"total_invoiced\": 16426.52,\n        \"total_paid\": 4106.63,\n        \"outstanding_balance\": 12319.89,\n        \"invoices_count\": 4,\n        \"latest_invoice_date\": \"2026-02-25\"\n    }\n}"
+        }
+      ]
+    }
+  ]
+}
