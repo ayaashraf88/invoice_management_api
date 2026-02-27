@@ -254,6 +254,20 @@ php artisan serve
 
 ---
 
+## 🔐 Demo Access
+
+**Email:** test@example.com  
+**Password:** password  
+
+> ⚠️ Demo credentials for testing only.
+
+---
+
+## 📮 Postman Collection
+
+https://api.postman.com/collections/17254939-82c9b2a0-5dd4-446f-98ca-85d8f9f4ac3c?access_key=PMAT-01KJFQDDH7ZQ5R10SSY8BAGA4M
+
+---
 ## 👩‍💻 Author
 
 **Aya Ashraf**  
