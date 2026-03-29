@@ -4,8 +4,11 @@ namespace App\Domain\Tax\Strategies;
 use App\Domain\Tax\Interfaces\TaxCalculatorInterface;
 
 class VatTax implements TaxCalculatorInterface{
-    function calculate(float $amount): float
+    function calculate(float $amount, string $type): float
     {
-        return $amount * 0.15;
+        if ($type === 'vat') {
+            return $amount * 0.15;
+        }
+        throw new \InvalidArgumentException('Unsupported tax type');
     }
 }

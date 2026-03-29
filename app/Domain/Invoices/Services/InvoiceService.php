@@ -28,7 +28,7 @@ class InvoiceService
         }
 
         $subtotal = $contract->rent_amount;
-        $taxAmount = $this->taxService->calculateTax($subtotal);
+        $taxAmount = $this->taxService->calculateTax($subtotal,'municipal                                      ');
         $total = $subtotal + $taxAmount;
         return $this->invoiceRepo->createInvoice([
             'contract_id' => $dto->contract_id,

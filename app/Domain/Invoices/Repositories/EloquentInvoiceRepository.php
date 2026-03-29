@@ -43,6 +43,7 @@ class EloquentInvoiceRepository implements InvoiceRepositoryInterface
             $sequence = Invoice::whereHas('contract', function ($query) use ($tenantId) {
                 $query->where('tenant_id', $tenantId);
             })->lockForUpdate()->count() + 1;
+            return $sequence;
            });
     }
     function getTotalPaidForInvoice(int  $contractId): float

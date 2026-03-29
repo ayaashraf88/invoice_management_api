@@ -22,7 +22,7 @@ class TaxService
         // }
 
         // return round($totalTax, 2);
-        if(!isset($this->cacalculators[$type])){
+        if(!isset($this->calculators[$type])){
             throw new \Exception("No tax calculator found for type: $type");
         }
         return round($this->calculators[$type]->calculate($amount, $type), 2);
