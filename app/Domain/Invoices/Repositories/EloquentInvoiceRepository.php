@@ -4,6 +4,7 @@ namespace App\Domain\Invoices\Repositories;
 
 use App\Domain\Invoices\Enums\InvoiceStatusEnum;
 use App\Domain\Invoices\Models\Invoice;
+use Illuminate\Support\Facades\DB;
 
 class EloquentInvoiceRepository implements InvoiceRepositoryInterface
 {
@@ -35,9 +36,14 @@ class EloquentInvoiceRepository implements InvoiceRepositoryInterface
     }
     public function getNextSequence(int $tenantId): int
     {
-        return Invoice::whereHas('contract', function ($query) use ($tenantId) {
-            $query->where('tenant_id', $tenantId);
-        })->count() + 1;
+        // return Invoice::whereHas('contract', function ($query) use ($tenantId) {
+        //     $query->where('tenant_id', $tenantId);
+        // })->count() + 1;
+       return DB::transaction(function () use ($tenantId) {
+            $sequence = Invoice::whereHas('contract', function ($query) use ($tenantId) {
+                $query->where('tenant_id', $tenantId);
+            })->lockForUpdate()->count() + 1;
+           });
     }
     function getTotalPaidForInvoice(int  $contractId): float
     {

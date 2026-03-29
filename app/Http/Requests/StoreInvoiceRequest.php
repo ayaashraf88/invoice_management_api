@@ -15,7 +15,7 @@ class StoreInvoiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'due_date' => 'required|date',
+            'due_date' => 'required|date|before_or_equal:' . now()->addDays(30)->toDateString(),
         ];
     }
 

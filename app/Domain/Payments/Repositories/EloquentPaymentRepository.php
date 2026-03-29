@@ -27,7 +27,7 @@ class EloquentPaymentRepository implements PaymentRepositoryInterface
     public function deletePayment(int $id): bool
     {
         $payment = Payment::find($id);
-        if ($payment) {
+        if ($payment) { 
             return $payment->delete();
         }
         return false;

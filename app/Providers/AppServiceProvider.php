@@ -35,8 +35,8 @@ class AppServiceProvider extends ServiceProvider
         );
      $this->app->singleton(\App\Domain\Tax\Services\TaxService::class, function ($app) {
         return new \App\Domain\Tax\Services\TaxService([
-            new \App\Domain\Tax\Strategies\VatTax(),
-            new \App\Domain\Tax\Strategies\MunicipalFee(),
+           'vat' => new \App\Domain\Tax\Strategies\VatTax(),
+          'municipal' =>  new \App\Domain\Tax\Strategies\MunicipalFee(),
         ]);
     });
     }

@@ -13,14 +13,18 @@ class TaxService
         $this->calculators = $calculators;
     }
 
-    public function calculateTax(float $amount): float
+    public function calculateTax(float $amount, string $type): float
     {
         $totalTax = 0;
 
-        foreach ($this->calculators as $calculator) {
-            $totalTax += $calculator->calculate($amount);
-        }
+        // foreach ($this->calculators as $calculator) {
+        //     $totalTax += $calculator->calculate($amount, $type);
+        // }
 
-        return round($totalTax, 2);
+        // return round($totalTax, 2);
+        if(!isset($this->cacalculators[$type])){
+            throw new \Exception("No tax calculator found for type: $type");
+        }
+        return round($this->calculators[$type]->calculate($amount, $type), 2);
     }
 }
