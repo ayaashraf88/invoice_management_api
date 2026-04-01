@@ -18,5 +18,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/{invoice}', [\App\Http\Controllers\InvoiceController::class, 'getInvoice']);
         Route::post('/{invoice}/payment', [\App\Http\Controllers\InvoiceController::class, 'recordPayment']);
     });
+      Route::prefix('tenant')->group(function () {
+    Route::get('/{tenant}/report', [\App\Http\Controllers\TenantsController::class, 'download']);
+
+    });
 
 });
