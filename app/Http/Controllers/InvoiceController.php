@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Domain\Contracts\Models\Contract;
 use App\Domain\Invoices\Dtos\CreateInvoiceDTO;
+use App\Domain\Invoices\Facades\InvoiceManagementFacade;
 use App\Domain\Invoices\Models\Invoice;
 use App\Domain\Invoices\Repositories\InvoiceRepositoryInterface;
 use App\Domain\Invoices\Services\InvoiceService;
@@ -20,12 +21,12 @@ use Illuminate\Http\Request;
 class InvoiceController extends Controller
 {
     use AuthorizesRequests;
-    public function __construct(private InvoiceService $invoiceService, private InvoiceRepositoryInterface $invoiceRepo) {}
+    public function __construct(protected InvoiceManagementFacade $invoiceFacade, private InvoiceRepositoryInterface $invoiceRepo) {}
     public function store(StoreInvoiceRequest $request, Contract $contract)
     {
         $this->authorize('create', $contract);
         $dto = CreateInvoiceDTO::fromRequest($request, $contract);
-        $invoice = $this->invoiceService->createInvoice($dto);
+        $invoice = $this->invoiceFacade->createInvoice($dto);
         return new InvoiceResource($invoice);
     }
     public function listInvoices(Contract $contract, Request $request)
@@ -54,13 +55,13 @@ class InvoiceController extends Controller
     {
         $this->authorize('recordPayment', $invoice);
         $dto = RecordPaymentDTO::fromRequest($request, $invoice);
-        $payment = $this->invoiceService->recordPayment($dto);
+        $payment = $this->invoiceFacade->recordPayment($dto);
         return new PaymentResource($payment);
     }
     public function summary(Contract $contract)
     {
         $this->authorize('view', $contract);
-        $summary = $this->invoiceService->getContractSummary($contract->id);
+        $summary = $this->invoiceFacade->getContractSummary($contract->id);
         return new ContractSummaryResource($summary);
     }
 }
