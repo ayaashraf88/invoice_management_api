@@ -8,8 +8,11 @@ use App\Domain\Invoices\Models\Invoice;
 use App\Domain\Invoices\Policies\InvoicePolicy;
 use App\Domain\Payments\Models\Payment;
 use App\Domain\Payments\Policies\PaymentPolicy;
+use App\Domain\Tenants\Models\Tenant;
+use App\Domain\Tenants\Policies\TenantPolicy;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -29,16 +32,16 @@ class AppServiceProvider extends ServiceProvider
             \App\Domain\Payments\Repositories\PaymentRepositoryInterface::class,
             \App\Domain\Payments\Repositories\EloquentPaymentRepository::class
         );
-         $this->app->bind(
+        $this->app->bind(
             \App\Domain\Users\Repositories\AuthRepositoryInterface::class,
             \App\Domain\Users\Repositories\EloquentAuthRepository::class
         );
-     $this->app->singleton(\App\Domain\Tax\Services\TaxService::class, function ($app) {
-        return new \App\Domain\Tax\Services\TaxService([
-           'vat' => new \App\Domain\Tax\Strategies\VatTax(),
-          'municipal' =>  new \App\Domain\Tax\Strategies\MunicipalFee(),
-        ]);
-    });
+        $this->app->singleton(\App\Domain\Tax\Services\TaxService::class, function ($app) {
+            return new \App\Domain\Tax\Services\TaxService([
+                'vat' => new \App\Domain\Tax\Strategies\VatTax(),
+                'municipal' =>  new \App\Domain\Tax\Strategies\MunicipalFee(),
+            ]);
+        });
     }
 
     /**
@@ -47,5 +50,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::policy(Invoice::class, InvoicePolicy::class);
+        Gate::policy(Tenant::class, TenantPolicy::class);
     }
 }
